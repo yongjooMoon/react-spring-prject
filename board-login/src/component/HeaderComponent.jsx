@@ -30,10 +30,10 @@ const HeaderComponent = () => {
                     <div className="navbar-left">
                         {!isLoginPage && !isSignPage ? (
                             <span onClick={() => handleNavigation('/board')} className="navbar-brand" style={{ cursor: 'pointer' }}>
-                                Board-FullStack-App
+                                React-Spring-Project
                             </span>
                         ) : (
-                            <span className="navbar-brand">Board-FullStack-App</span>
+                            <span className="navbar-brand">React-Spring-Project</span>
                         )}
                     </div>
                     
