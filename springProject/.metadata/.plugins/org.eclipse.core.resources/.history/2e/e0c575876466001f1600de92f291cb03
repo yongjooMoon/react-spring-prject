@@ -1,0 +1,50 @@
+server:
+  port: 9000
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: api-gateWay
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      globalcors:
+        cors-configurations:
+          "[/**]":
+            allowedOrigins: 'http://localhost:3000'
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+      routes:
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/**
+          filters:
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Content-Type, Authorization
+            - AddResponseHeader=Access-Control-Allow-Credentials, 'true'
+
+        - id: menu-service
+          uri: lb://MENU-SERVICE
+          predicates:
+            - Path=/menu/**
+          filters:
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Content-Type, Authorization
+            - AddResponseHeader=Access-Control-Allow-Credentials, 'true'

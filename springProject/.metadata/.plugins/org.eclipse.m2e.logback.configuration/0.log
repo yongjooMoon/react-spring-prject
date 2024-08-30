@@ -1,0 +1,11 @@
+2024-08-19 14:21:05,763 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2024-08-19 14:34:29,142 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2024-08-19 17:41:19,968 [Worker-3: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2024-08-20 17:26:25,672 [Worker-192: Debug Source Lookup] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/springframework/spring-web/6.1.11/spring-web-6.1.11-sources.jar
+2024-08-20 17:26:25,750 [Worker-192: Debug Source Lookup] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/springframework/spring-web/6.1.11/spring-web-6.1.11-sources.jar
+2024-08-27 13:35:41,191 [Worker-1145: Git Repository Change Scanner] WARN  org.eclipse.jgit.lib.Repository - close() called when useCnt is already zero for Repository[D:\springProject\reactSpringProject\.git]
+2024-08-27 13:56:41,878 [Worker-1160: Remove Repositories] WARN  org.eclipse.jgit.lib.Repository - close() called when useCnt is already zero for Repository[D:\springProject\.git]
+2024-08-27 17:22:12,394 [Worker-4: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2024-08-28 09:05:29,369 [Worker-5: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2024-08-28 11:10:01,799 [Worker-48: Debug Source Lookup] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/springframework/spring-web/6.1.12/spring-web-6.1.12-sources.jar
+2024-08-28 11:10:01,879 [Worker-48: Debug Source Lookup] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/springframework/spring-web/6.1.12/spring-web-6.1.12-sources.jar

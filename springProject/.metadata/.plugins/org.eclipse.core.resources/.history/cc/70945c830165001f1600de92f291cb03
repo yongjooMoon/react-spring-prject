@@ -1,0 +1,5 @@
+package com.msaProjectMenu01.menu.model;
+
+public class Product {
+
+}

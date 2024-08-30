@@ -1,0 +1,10 @@
+package com.msaProjectMenu01.core.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
+
+@Configuration
+@ImportResource("classpath:/application.xml")  // XML 설정 파일 경로
+public class AppConfig {
+    // Java 기반 설정 추가 가능
+}

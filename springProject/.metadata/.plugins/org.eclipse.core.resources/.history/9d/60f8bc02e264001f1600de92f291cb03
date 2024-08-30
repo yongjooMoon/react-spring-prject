@@ -1,0 +1,18 @@
+package com.msaProjectMenu01.menu.cotrller;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
+@RequestMapping("/menu")
+public class MenuController {
+
+	@PostMapping("/create")
+	public void test() {
+		System.out.println("MSA 테스트 성공입니다.");
+	}
+}

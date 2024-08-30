@@ -1,0 +1,21 @@
+package com.msaProjectMenu01.core.util;
+
+import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+
+public class Util {
+
+	// 첨부파일 Rename
+	public static String getUuid(String pkValue, String fieldName)  throws Exception {
+		Random numGen = SecureRandom.getInstance("SHA1PRNG");
+		int randomInt = (numGen.nextInt(6)) + 1; 
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmSS");
+		String curDate = sdf.format(date);
+		String strRowNum = "";
+		String fileName = pkValue + curDate + strRowNum + randomInt; // 파일 rename시 변경할 부분
+		return fileName; 
+	}
+}

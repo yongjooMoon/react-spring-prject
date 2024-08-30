@@ -1,0 +1,5 @@
+package com.msaProject.core.util;
+
+public class JwtUtill {
+
+}

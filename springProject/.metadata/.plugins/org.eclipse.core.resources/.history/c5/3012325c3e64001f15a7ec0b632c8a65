@@ -1,0 +1,23 @@
+server:
+  port: 8000
+  
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Hello Spring Cloud Gateway Global Filter
+            preLogger: true
+            postLogger: true
+ 
+      
+      
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka

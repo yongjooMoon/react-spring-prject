@@ -1,0 +1,54 @@
+package com.msaProjectMenu01.menu.service;
+
+import java.io.File;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.msaProjectMenu01.core.util.Util;
+import com.msaProjectMenu01.menu.model.Product;
+import com.msaProjectMenu01.menu.repository.ProductRepository;
+
+@Service
+public class ProductService {
+
+	@Value("${upload.path}")
+	private String uploadFilePath;
+	
+	@Autowired
+	private ProductRepository productRepository;
+	
+	public void createProduct(String productName, String productPrice, MultipartFile imageFile, String userId) throws Exception {
+		
+		String orginFileNm = imageFile.getOriginalFilename();
+        String fileNm = Util.getUuid("", orginFileNm);
+        String ext = "";
+        if(orginFileNm.indexOf(".") > -1) {
+        	ext = orginFileNm.substring(orginFileNm.indexOf(".")); 
+        }
+        
+        // 디레토리가 없다면 생성
+ 		File dir = new File(uploadFilePath);
+ 		if (!dir.isDirectory()) {
+ 			dir.mkdirs();
+ 		}
+        
+        String saveFilePath = uploadFilePath + File.separator + fileNm + ext;
+        
+        File serverFile = new File(saveFilePath);
+        imageFile.transferTo(serverFile);
+        
+        Product param = new Product();
+        param.setProductNm(productName);
+        param.setAtm(productName);
+        param.setFileNm(fileNm);
+        param.setOriginalFileNm(orginFileNm + ext);
+        param.setFilePath(saveFilePath);
+        param.setUserId(userId);
+        
+        
+        productRepository.save(param);
+	}
+}

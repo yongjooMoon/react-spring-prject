@@ -1,0 +1,33 @@
+server:
+  port: 9000
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials 
+      globalcors:
+        cors-configurations:
+          "[/**]":
+            allowedOrigins: 'http://localhost:3000'
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+      routes:
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/**

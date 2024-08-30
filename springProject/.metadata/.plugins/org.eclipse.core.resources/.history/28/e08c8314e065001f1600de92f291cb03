@@ -1,0 +1,49 @@
+package com.msaProject.core.filter;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class JwtRequestFilter extends OncePerRequestFilter {
+
+	@Value("${jwt.key}")
+    private String SECRET_KEY;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws ServletException, IOException {
+
+        final String authorizationHeader = request.getHeader("Authorization");
+
+        String username = null;
+        String jwt = null;
+
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            jwt = authorizationHeader.substring(7);
+            username = extractUsername(jwt);
+        }
+
+        if (username != null && request.getAttribute("username") == null) {
+            // JWT가 유효하면 사용자 정보를 설정
+            request.setAttribute("username", username);
+        }
+
+        chain.doFilter(request, response);
+    }
+
+    private String extractUsername(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
+    }
+}

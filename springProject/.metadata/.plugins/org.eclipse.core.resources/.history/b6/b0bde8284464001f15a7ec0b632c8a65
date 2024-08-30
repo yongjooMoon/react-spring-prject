@@ -1,0 +1,21 @@
+server:
+  port: 9000
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defalutZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      mvc:
+        routes:
+        - id: msaClient1
+          uri: lb://msaClient1
+          predicates:
+            - Path=/your-path/**
