@@ -81,11 +81,25 @@ public class LoginController {
 	}
 	
 	@GetMapping("/logout")
-	public void logout(HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+//		HttpSession session = request.getSession();
+//		
+//		if(session != null) {
+//			session.invalidate();
+//		}
 		
-		if(session != null) {
-			session.invalidate();
-		}
+		Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("token".equals(cookie.getName())) {
+                    cookie.setValue(null);
+                    cookie.setMaxAge(0); // 쿠키 만료 시간 설정 (즉시 만료)
+                    cookie.setPath("/"); // 쿠키의 경로 설정 (애플리케이션 전체에 적용)
+                    response.addCookie(cookie); // 응답에 쿠키 추가하여 클라이언트에서 삭제되도록 함
+                    break;
+                }
+            }
+        }
 	}
 }
