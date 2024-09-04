@@ -8,15 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.msaProjectMenu01.menu.service.ProductService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -32,36 +31,19 @@ public class ProductController {
 	}
 	
 	@PostMapping("/create")
-	public void createProduct(
-            @RequestParam("productName") String productName,
-            @RequestParam("productPrice") String productPrice,
-            @RequestParam("imageFile") MultipartFile imageFile,
-            @RequestParam("userId") String userId) {
-
+	public void createProduct( HttpServletRequest request ) {
         try {
-            // 이미지 파일 처리
-            if (imageFile != null && !imageFile.isEmpty()) {
-                // 이미지 파일 저장 또는 처리
-            	productService.createProduct(productName, productPrice, imageFile, userId);
-            }else {
-            	throw new Exception("이미지 미존재");
-            }
+        	productService.createProduct(request);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 	
 	@PostMapping("/update")
-	public void productUpdate(
-            @RequestParam("productName") String productName,
-            @RequestParam("productPrice") String productPrice,
-            @RequestParam(value ="imageFile", required=false) MultipartFile imageFile,
-            @RequestParam("userId") String userId,
-            @RequestParam("productId") Integer productId) {
-
+	public void productUpdate( HttpServletRequest request ) {
         try {
             // 이미지 파일 처리
-        	productService.productUpdate(productName, productPrice, imageFile, userId, productId);
+        	productService.productUpdate(request);
         } catch (Exception e) {
             e.printStackTrace();
         }

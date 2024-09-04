@@ -13,10 +13,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.msaProjectMenu01.core.util.Util;
 import com.msaProjectMenu01.menu.model.Product;
 import com.msaProjectMenu01.menu.repository.ProductRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class ProductService {
@@ -57,7 +60,18 @@ public class ProductService {
 	}
 	
 	// 상품등록
-	public void createProduct(String productName, String productPrice, MultipartFile imageFile, String userId) throws Exception {
+	public void createProduct(HttpServletRequest request) throws Exception {
+		String productName = request.getParameter("productName");
+		String productPrice = request.getParameter("productPrice");
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile imageFile = multipartRequest.getFile("imageFile");
+		String userId = request.getParameter("userId");
+		
+		// 이미지 파일 처리
+        if (imageFile == null) {
+            // 이미지 파일 저장 또는 처리
+        	throw new Exception("이미지 미존재");
+        }
 		
 		String orginFileNm = imageFile.getOriginalFilename();
         String fileNm = Util.getUuid("", orginFileNm);
@@ -110,7 +124,13 @@ public class ProductService {
 	/*
 	 * 기존 파일 삭제 -> 신규 파일 등록
 	 * */
-	public void productUpdate(String productName, String productPrice, MultipartFile imageFile, String userId, Integer productId) throws Exception {
+	public void productUpdate(HttpServletRequest request) throws Exception {
+		String productName = request.getParameter("productName");
+		String productPrice = request.getParameter("productPrice");
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile imageFile = multipartRequest.getFile("imageFile");
+		String userId = request.getParameter("userId");
+		Integer productId = Integer.parseInt(request.getParameter("productId"));
 		
 		Optional<Product> productOptional = productRepository.findById(productId);
 
