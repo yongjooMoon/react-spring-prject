@@ -18,13 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.msaProject.board.model.User;
 import com.msaProject.board.service.LoginService;
 import com.msaProject.core.util.JwtUtil;
-import com.msaProject.core.util.UserInfo;
-import com.msaProject.core.util.Util;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
