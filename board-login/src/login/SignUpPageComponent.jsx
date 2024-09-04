@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom'; // React Router v6의 Navigate 컴포넌트
+import AxiosService from '../service/AxiosService';
 import HashingService from '../service/HashingService';
-import LoginService from '../service/LoginService';
 import AddressPopup from './AddressPopup'; // DaumPostcode 컴포넌트 import
 
 const SignUpPageComponent = () => {
@@ -60,7 +60,7 @@ const SignUpPageComponent = () => {
     form.password = HashingService.encryptText(form.password);
     form.confirmPassword = HashingService.encryptText(form.confirmPassword);
 
-    LoginService.createId(form)
+    AxiosService.apiRequest('POST', 'api/create', form)
             .then((res) => {
                 // 성공 메시지 표시
                 alert('회원가입에 성공하였습니다!');

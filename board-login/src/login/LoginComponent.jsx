@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom'; // React Router v6의 Navigate 컴포넌트
 import { useUser } from '../context/UserContext';
+import AxiosService from '../service/AxiosService';
 import HashingService from '../service/HashingService';
-import LoginService from '../service/LoginService';
 
 const LoginPage = () => {
   const [id, setId] = useState('');
@@ -65,6 +65,7 @@ const LoginPage = () => {
     try {
         // 비밀번호 암호화
         const orginPassword = password;
+        
         const info = {
             id,
             password
@@ -78,26 +79,25 @@ const LoginPage = () => {
         }
 
         info.password = HashingService.encryptText(password);
-        LoginService.loginUser(info)
-            .then((res) => {
-                setUser({ 
-                    userList: res.data.list
-                });
+        AxiosService.apiRequest('POST', 'api/login', info)
+          .then((res) => {
+              setUser({ 
+                  userList: res.data.list
+              });
 
-                const param = res.data.list;
-                // 컨텍스트에 전역 변수 가지고 다니기
-                setInfo({param});
-                // setNavigateTo('/board', { userInfo: { user } }); 파라미터 넘기기
-                setNavigateTo('/board');
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                //console.error("로그인 실패하였습니다.", error);
-                setError("로그인 실패하였습니다.");
-                setPassword(orginPassword);
-                setIsLoading(false);
-            });
-
+              const param = res.data.list;
+              // 컨텍스트에 전역 변수 가지고 다니기
+              setInfo({param});
+              // setNavigateTo('/board', { userInfo: { user } }); 파라미터 넘기기
+              setNavigateTo('/board');
+              setIsLoading(false);
+          })
+          .catch((error) => {
+              //console.error("로그인 실패하였습니다.", error);
+              setError("로그인 실패하였습니다.");
+              setPassword(orginPassword);
+              setIsLoading(false);
+          });
     } catch (err) {
       setError(err.message);
       setIsLoading(false);

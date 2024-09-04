@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ProductService from '../service/ProductService';
+import AxiosService from '../service/AxiosService';
 
 const ProductUploadPopup = ({ onClose, popupData }) => {
     const [image, setImage] = useState(null);
@@ -56,7 +56,7 @@ const ProductUploadPopup = ({ onClose, popupData }) => {
             formData.append('userId', userId);
             formData.append('productId', productId);
 
-            ProductService.productUpdate(formData)
+            AxiosService.apiRequestFile('POST', 'menu/update', formData)
                 .then((res) => {
                     if(res.status === 200){
                         // 팝업 닫기
@@ -78,7 +78,7 @@ const ProductUploadPopup = ({ onClose, popupData }) => {
             formData.append('imageFile', imageFile);
             formData.append('userId', userId);
 
-            ProductService.productCreate(formData)
+            AxiosService.apiRequestFile('POST', 'menu/create', formData)
                 .then((res) => {
                     if(res.status === 200){
                         // 팝업 닫기

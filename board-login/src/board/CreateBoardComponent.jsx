@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
-import BoardService from '../service/BoardService';
+import AxiosService from '../service/AxiosService';
 
 const CreateBoardComponent = () => {
     const [type, setType] = useState('');
@@ -39,7 +39,7 @@ const CreateBoardComponent = () => {
         };
 
         if (no === '_create') {
-            BoardService.createBoard(boardData).then( res => {
+            AxiosService.apiRequest('POST', 'api/board', boardData).then( res => {
                 if (res.status === 200) {
                     navigate('/board');
                 } else {
@@ -47,7 +47,7 @@ const CreateBoardComponent = () => {
                 }
             });
         } else {
-            BoardService.updateBoard(no, boardData).then( res => {
+            AxiosService.apiRequest('PUT', 'api/board/' + no, boardData).then( res => {
                 if (res.status === 200) {
                     navigate('/board');
                 } else {
@@ -71,7 +71,7 @@ const CreateBoardComponent = () => {
 
     useEffect(() => {
         if (no !== '_create') {
-            BoardService.getOneBoard(no).then(res => {
+            AxiosService.apiRequest('GET', 'api/board/' + no).then(res => {
                 const boardData = res.data;
                 setType(boardData.type);
                 setTitle(boardData.title);

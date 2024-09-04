@@ -1,6 +1,42 @@
 import axios from 'axios';
 
-const PRODUCT_API_BASE_URL = "http://localhost:9000/menu";
+// 일반 api 요청
+const apiRequest = (method, url, data = null) => {
+    const config = {
+        method: method,
+        url: "http://localhost:9000/" + url,
+        withCredentials: true,
+        headers: {
+            'Content-Type': 'application/json', // 중요: JSON 형식임을 명시
+        },
+    };
+
+    // POST나 PUT 요청인 경우, 데이터(payload)를 추가
+    if (data && (method === 'POST' || method === 'PUT')) {
+        config.data = data;
+    }
+
+    return handleApiResponse(() => axios(config));
+};
+
+// 파일 api 요청
+const apiRequestFile = (method, url, data = null) => {
+    const config = {
+        method: method,
+        url: "http://localhost:9000/" + url,
+        withCredentials: true,
+        headers: {
+            'Content-Type': 'multipart/form-data', 
+        },
+    };
+
+    // POST나 PUT 요청인 경우, 데이터(payload)를 추가
+    if (data && (method === 'POST' || method === 'PUT')) {
+        config.data = data;
+    }
+
+    return handleApiResponse(() => axios(config));
+};
 
 // 공통 API 응답 처리 함수
 const handleApiResponse = async (apiCall) => {
@@ -33,28 +69,9 @@ const handleApiResponse = async (apiCall) => {
     }
 };
 
-const getProducts = () => {
-    return handleApiResponse(() => axios.get(PRODUCT_API_BASE_URL + "/products", { withCredentials: true }));
+const AxiosService = {
+    apiRequest,
+    apiRequestFile
 }
 
-const productUpdate = (product) => {
-    return handleApiResponse(() => axios.post(PRODUCT_API_BASE_URL + "/update" , product, { withCredentials: true }));
-}
-
-const deleteProduct = (productId) => {
-    return handleApiResponse(() => axios.delete(PRODUCT_API_BASE_URL + "/delete?productId=" + productId, { withCredentials: true }));
-}
-
-const productCreate = (product) => {
-    return handleApiResponse(() => axios.post(PRODUCT_API_BASE_URL + "/create", product, { withCredentials: true }));
-}
-
-
-const ProductService = {
-    productCreate,
-    getProducts,
-    deleteProduct,
-    productUpdate
-}
-
-export default ProductService;
+export default AxiosService;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useUser } from '../context/UserContext';
-import CommentsSectionService from '../service/CommentsSectionService';
+import AxiosService from '../service/AxiosService';
 
 const CommentsSection = ({ boardId }) => {
     const [comments, setComments] = useState([]);
@@ -13,7 +13,7 @@ const CommentsSection = ({ boardId }) => {
             no: boardId
         }
 
-        CommentsSectionService.commentSelect(boardNo).then(res => {
+        AxiosService.apiRequest('POST', 'api/comments/select', boardNo).then(res => {
             setComments(res.data);
         }).catch(error => console.error('댓글 조회 실패', error));
     }, [boardId]);
@@ -28,9 +28,9 @@ const CommentsSection = ({ boardId }) => {
             createdTime: new Date().toISOString()
         };
 
-        CommentsSectionService.commentInsert(comment).then(response => {
+        AxiosService.apiRequest('POST', 'api/comments/add', comment).then(response => {
             if (response.status === 200) {
-                CommentsSectionService.commentSelect(comment).then(res => {
+                AxiosService.apiRequest('POST', 'api/comments/select', comment).then(res => {
                     setComments(res.data);
                     setNewComment('');
                 });
@@ -46,7 +46,7 @@ const CommentsSection = ({ boardId }) => {
                 commentNo: commentNo
             };
 
-            CommentsSectionService.commentDelete(commentInfo).then(response => {
+            AxiosService.apiRequest('POST', 'api/comments/delete', commentInfo).then(response => {
                 if (response.status === 200) {
                     setComments(prevComments => 
                         prevComments.filter(comments => 

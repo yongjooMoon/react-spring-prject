@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom'; // React Router v6의 Navigate 컴포넌트
-import BoardService from '../service/BoardService';
+import AxiosService from '../service/AxiosService';
 
 const ListBoardComponent = () => {
     const [loading, setLoading] = useState(true);
@@ -13,7 +13,7 @@ const ListBoardComponent = () => {
     });
 
     useEffect(() => {
-        BoardService.getBoards(state.p_num)
+        AxiosService.apiRequest('GET', 'api/board?p_num=' + state.p_num)
             .then((res) => {
                 setLoading(false);
                 setState({ 
@@ -38,7 +38,7 @@ const ListBoardComponent = () => {
     };
 
     const listBoard = (p_num) => {
-        BoardService.getBoards(p_num).then((res) => {
+        AxiosService.apiRequest('GET', 'api/board?p_num=' + p_num).then((res) => {
             setState({ 
                 p_num: res.data.pagingData.currentPageNum,
                 paging: res.data.pagingData,

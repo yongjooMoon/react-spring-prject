@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import LoginService from '../service/LoginService';
+import AxiosService from '../service/AxiosService';
 
 const HeaderComponent = () => {
     const location = useLocation();
@@ -10,7 +10,7 @@ const HeaderComponent = () => {
     const isSignPage = location.pathname === '/signUp';
 
     const loginPage = () => {
-        LoginService.logOut().then((res) => {
+        AxiosService.apiRequest('GET', 'api/logout').then((res) => {
             if (res.status === 200) {
                 navigate('/'); // useNavigate로 페이지 이동
             } else {

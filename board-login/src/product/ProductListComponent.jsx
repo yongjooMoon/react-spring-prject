@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useUser } from '../context/UserContext';
-import ProductService from '../service/ProductService';
+import AxiosService from '../service/AxiosService';
 import ProductUploadPopup from './ProductUploadPopup';
 
 const ProductListComponent = () => {
@@ -10,7 +10,7 @@ const ProductListComponent = () => {
     const { user } = useUser(); // 컨텍스트에서 사용자 정보 가져오기
 
     useEffect(() => {
-        ProductService.getProducts()
+        AxiosService.apiRequest('GET', 'menu/products')
             .then((res) => {
                 if (res.status === 200) {
                     const productList = res.data.list.map(product => {
@@ -40,7 +40,7 @@ const ProductListComponent = () => {
 
     const deleteProduct = (data) => {
         if(window.confirm("정말로 상품을 삭제하시겠습니까?\n삭제된 상품은 복구 할 수 없습니다.")) {
-            ProductService.deleteProduct(data)
+            AxiosService.apiRequest('DELETE', 'menu/delete?productId=' + data)
                 .then((res) => {
                     if (res.status === 200) {
                         alert("상품을 삭제하였습니다.");
@@ -62,7 +62,7 @@ const ProductListComponent = () => {
     };
 
     const selectList = () =>{
-        ProductService.getProducts()
+        AxiosService.apiRequest('GET', 'menu/products')
         .then((res) => {
             if (res.status === 200) {
                 const productList = res.data.list.map(product => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
-import BoardService from '../service/BoardService';
+import AxiosService from '../service/AxiosService';
 import CommentsSection from './CommentsSection';
 import HeartButton from './HeartButton';
 
@@ -13,14 +13,14 @@ const ReadBoardComponent = () => {
     const [isLiked, setIsLiked] = useState(false);
 
     useEffect(() => {
-        BoardService.getOneBoard(no).then(res => {
+        AxiosService.apiRequest('GET', 'api/board/' + no).then(res => {
             setBoard(res.data);
 
             const info ={
                 no: no,
                 id: user.param.id
             }
-            BoardService.getLike(info).then(res => {
+            AxiosService.apiRequest('POST', 'api/board/getLike', info).then(res => {
                 setIsLiked(res.data);
             })
         });
@@ -71,7 +71,7 @@ const ReadBoardComponent = () => {
             id: user.param.id,
             isLiked: chkLike
         }
-        BoardService.likeClick(likeInfo).then( res => {
+        AxiosService.apiRequest('POST', 'api/board/like', likeInfo).then( res => {
             if (res.status === 200) {
                 //alert("좋아요를 눌렀습니다.");
             } else {
@@ -82,7 +82,7 @@ const ReadBoardComponent = () => {
 
     const deleteList = (no) => {
         if(window.confirm("정말로 글을 삭제하시겠습니까?\n삭제된 글은 복구 할 수 없습니다.")) {
-            BoardService.deleteBoard(no).then( res => {
+            AxiosService.apiRequest('DELETE', 'api/board/' + no).then( res => {
                 //console.log("delete result => "+ JSON.stringify(res));
                 if (res.status === 200) {
                     navigate('/board');
