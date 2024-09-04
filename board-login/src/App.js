@@ -1,12 +1,12 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
+import CreateBoardComponent from './board/CreateBoardComponent';
+import ListBoardComponent from './board/ListBoardComponent';
+import ReadBoardComponent from './board/ReadBoardComponent';
 import FooterComponent from './component/FooterComponent';
 import HeaderComponent from './component/HeaderComponent';
-import CreateBoardComponent from './login_board/CreateBoardComponent';
-import ListBoardComponent from './login_board/ListBoardComponent';
-import LoginComponent from './login_board/LoginComponent';
-import ReadBoardComponent from './login_board/ReadBoardComponent';
-import SignUpPageComponent from './login_board/SignUpPageComponent';
+import LoginComponent from './login/LoginComponent';
+import SignUpPageComponent from './login/SignUpPageComponent';
 import ProductListComponent from './product/ProductListComponent';
 
 function App() {
