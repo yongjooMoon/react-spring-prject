@@ -4,8 +4,13 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.msaProjectMenu01.core.filter.JwtRequestFilter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -13,20 +18,27 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Key;
+import java.util.Base64;
 
+@Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
+private static final Logger logger = LoggerFactory.getLogger(JwtRequestFilter .class);
+	
 	@Value("${jwt.key}")
 	private String SECRET_KEY;
 
-	 private Key getSigningKey() {
-	        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+	private Key getSigningKey() {
+		byte[] keyBytes = Base64.getDecoder().decode(SECRET_KEY);
+	    return Keys.hmacShaKeyFor(keyBytes); // Key 객체 생성
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
+    	logger.info("Request received at {}", request.getRemoteAddr());
+    	
         // 쿠키에서 JWT 추출
         String jwt = extractJwtFromCookies(request);
 
@@ -45,6 +57,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         chain.doFilter(request, response);
+        
+        logger.info("Response sent to {}", request.getRemoteAddr());
     }
 
     private String extractJwtFromCookies(HttpServletRequest request) {
