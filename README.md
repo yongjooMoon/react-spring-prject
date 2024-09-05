@@ -1,4 +1,4 @@
-# Spring Boot와 React 를 사용하여 MSA 프로젝트 만들기
+# Spring Boot와 React를 사용하여 MSA 프로젝트 만들기
 
 Spring Boot와 React.js 를 모두 구성하여 MSA로 모듈별 프로젝트를 생성 및 관리<br>
 
