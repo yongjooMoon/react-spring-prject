@@ -25,7 +25,7 @@ Node : v20.16.0 <br>
 Spring Boot : 3.3.3 <br>
 JDK : 17 <br>
 react : 18.3.1 <br>
-redis
+redis : 3.05 <br>
 
 ### React.js 구성 요소
 ```bash
