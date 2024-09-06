@@ -11,6 +11,7 @@ Spring Boot와 React.js 를 모두 구성하여 MSA로 모듈별 프로젝트를
 ![js](https://img.shields.io/badge/Eclipse-2C2255?style=for-the-badge&logo=eclipse&logoColor=white)
 ![js](https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=Spring-Security&logoColor=white)
 ![js](https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white)
+![js](https://img.shields.io/badge/redis-%23DD0031.svg?&style=for-the-badge&logo=redis&logoColor=white)
 
 ## 개요
 
@@ -24,6 +25,7 @@ Node : v20.16.0 <br>
 Spring Boot : 3.3.3 <br>
 JDK : 17 <br>
 react : 18.3.1 <br>
+redis
 
 ### React.js 구성 요소
 ```bash
@@ -64,6 +66,8 @@ dependencies {
 Eureka, api-gateway를 설정, 9000(api-gateway), 9002(로그인+게시판), 9003(상품) 포트 생성 <br>
 
 5개의 메뉴를 구성(현재는 게시판과, 상품만 구성) 게시판에는 댓글과 좋아요 기능이 달렸으며 아이디를 인식하여 수정 및 삭제 접근이 허용된다, 상품 등록은 이미지 업로드 기능이 들어가 있다. <br>
+
+redis 사용, 로그아웃된 토큰을 수집하여 해당된 토큰으로 로그인 없이 접근을 방지한다. <br>
 
 
 ### 추후 개발
