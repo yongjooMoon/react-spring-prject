@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;board-1/bin/main/com/board&apos; to &apos;board1&apos;" description="Rename resource &apos;board&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="bin/main/com/board" name="board1" stamp="1724734967430" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;board-1/src/main/java/com/board&apos; to &apos;board1&apos;" description="Rename resource &apos;board&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/java/com/board" name="board1" stamp="1724735176772" updateReferences="true"/>
-</session>

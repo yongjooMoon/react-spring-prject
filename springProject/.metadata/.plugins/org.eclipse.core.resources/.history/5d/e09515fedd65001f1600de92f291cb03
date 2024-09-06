@@ -1,5 +1,0 @@
-package com.msaProject.core.filter;
-
-public class JwtRequestFilter {
-
-}

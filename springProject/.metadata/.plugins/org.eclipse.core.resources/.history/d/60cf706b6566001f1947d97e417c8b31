@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>
-	<comment>application properties</comment>
-    <entry key="upload.path">D:/springProject/File</entry>
-    
-    <entry key="jwt.key">5IVb9J0LeHpbqTQe25jUUAjtrSwFEHGJ5XIs9+1JcKI=</entry>
-</properties>
