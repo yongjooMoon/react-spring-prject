@@ -1,6 +1,6 @@
 spring:
   application:
-    name: menu-service
+    name: user-service
 
   datasource:
     url: jdbc:log4jdbc:mysql://localhost:3306/board-back?characterEncoding=UTF-8&serverTimezone=UTC
@@ -32,7 +32,7 @@ logging:
           INFO: INFO
 
 server:
-  port: 9003
+  port: 9002
   servlet:
     session:
       timeout: 60m
@@ -44,9 +44,9 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
-      
+
 jwt:
   key: 5IVb9J0LeHpbqTQe25jUUAjtrSwFEHGJ5XIs9+1JcKI=
   
 upload:
-  path: D:\File
+  path: D:\reactProject\springProject\File
