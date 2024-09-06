@@ -1,0 +1,13 @@
+# .gitignore
+/target/
+/.idea/
+/.vscode/
+/.metadata/
+*.class
+*.jar
+*.war
+*.iml
+/node_modules/
+/build/
+/logs/
+/out/
