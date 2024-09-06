@@ -1,50 +1,60 @@
 package com.msaProjectMenu01.core.filter;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.msaProjectMenu01.menu.service.JwtBlacklistService;
 import com.msaProjectMenu01.core.filter.JwtRequestFilter;
+import com.msaProjectMenu01.core.util.JwtUtil;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.Key;
-import java.util.Base64;
+import java.util.List;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-private static final Logger logger = LoggerFactory.getLogger(JwtRequestFilter .class);
-	
-	@Value("${jwt.key}")
-	private String SECRET_KEY;
+    private static final Logger logger = LoggerFactory.getLogger(JwtRequestFilter.class);
+    
+    @Autowired
+	private JwtBlacklistService jwtBlacklistService;
 
-	private Key getSigningKey() {
-		byte[] keyBytes = Base64.getDecoder().decode(SECRET_KEY);
-	    return Keys.hmacShaKeyFor(keyBytes); // Key 객체 생성
-    }
+    // 제외할 URL 목록
+    private final List<String> excludeUrlPatterns = List.of("/api/login", "/api/create", "/api/logout");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-    	logger.info("Request received at {}", request.getRemoteAddr());
-    	
+        // 현재 요청 URI
+        String requestUri = request.getRequestURI();
+
+        // 제외할 경로에 해당하는 경우 필터를 건너뜁니다.
+        if (excludeUrlPatterns.contains(requestUri)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        logger.info("Request received at {}", request.getRemoteAddr());
+
         // 쿠키에서 JWT 추출
-        String jwt = extractJwtFromCookies(request);
+        String jwt = JwtUtil.extractJwtFromCookies(request);
 
         if (jwt != null) {
             try {
-                String userId = extractUsername(jwt);
+            	if(jwtBlacklistService.isBlacklisted(jwt)) {
+            		// 블랙리스트에 포함된 토큰
+            		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "만료된 토큰입니다.");
+                    return;
+            	}
+            	
+                String userId = JwtUtil.extractUsername(jwt);
                 if (userId != null && request.getAttribute("userId") == null) {
                     // JWT가 유효하면 사용자 정보를 설정
                     request.setAttribute("userId", userId);
@@ -54,35 +64,16 @@ private static final Logger logger = LoggerFactory.getLogger(JwtRequestFilter .c
                 }
             } catch (Exception e) {
                 // JWT가 유효하지 않은 경우
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰이 만료되었거나 존재하지 않습니다.");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "잘못된 토큰입니다.");
                 return;
             }
+        }else {
+        	response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰이 존재하지 않습니다.");
+            return;
         }
 
         chain.doFilter(request, response);
-        
+
         logger.info("Response sent to {}", request.getRemoteAddr());
-    }
-
-    private String extractJwtFromCookies(HttpServletRequest request) {
-    	jakarta.servlet.http.Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (jakarta.servlet.http.Cookie cookie : cookies) {
-                if ("token".equals(cookie.getName())) {
-                    return cookie.getValue();
-                }
-            }
-        }
-        return null;
-    }
-
-    private String extractUsername(String token) {
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-        return claims.getSubject();
-        //return (String) claims.get("userId");
     }
 }

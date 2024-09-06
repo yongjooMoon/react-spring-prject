@@ -85,6 +85,9 @@ public class LoginController {
 //			session.invalidate();
 //		}
 		
+		// 블랙리스트 추가
+		loginService.logout(JwtUtil.extractJwtFromCookies(request));
+		
 		Cookie[] cookies = request.getCookies();
 
         if (cookies != null) {
