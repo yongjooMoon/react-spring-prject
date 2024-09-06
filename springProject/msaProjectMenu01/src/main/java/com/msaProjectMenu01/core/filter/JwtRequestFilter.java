@@ -44,14 +44,17 @@ private static final Logger logger = LoggerFactory.getLogger(JwtRequestFilter .c
 
         if (jwt != null) {
             try {
-                String username = extractUsername(jwt);
-                if (username != null && request.getAttribute("username") == null) {
+                String userId = extractUsername(jwt);
+                if (userId != null && request.getAttribute("userId") == null) {
                     // JWT가 유효하면 사용자 정보를 설정
-                    request.setAttribute("username", username);
+                    request.setAttribute("userId", userId);
+                } else if (userId == null) {
+                	response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰이 존재하지 않습니다.");
+                    return;
                 }
             } catch (Exception e) {
                 // JWT가 유효하지 않은 경우
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Token");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰이 만료되었거나 존재하지 않습니다.");
                 return;
             }
         }
@@ -80,5 +83,6 @@ private static final Logger logger = LoggerFactory.getLogger(JwtRequestFilter .c
                 .parseClaimsJws(token)
                 .getBody();
         return claims.getSubject();
+        //return (String) claims.get("userId");
     }
 }
