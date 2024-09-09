@@ -26,7 +26,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	private JwtBlacklistService jwtBlacklistService;
 
     // 제외할 URL 목록
-    private final List<String> excludeUrlPatterns = List.of("/api/login", "/api/create", "/api/logout");
+    private final List<String> excludeUrlPatterns = List.of("/api/login", "/api/create", "/api/logout", "/api/tokenCheck");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)

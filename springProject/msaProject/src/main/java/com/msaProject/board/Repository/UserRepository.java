@@ -12,4 +12,6 @@ import com.msaProject.board.model.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
 	Optional<User> findByIdAndPassword(String id, String password);
+	
+	Optional<User> findById(String id);
 }

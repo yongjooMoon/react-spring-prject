@@ -102,4 +102,32 @@ public class LoginController {
             }
         }
 	}
+	
+	@PostMapping("/tokenCheck")
+	public ResponseEntity<Map<String, Object>> tokenCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 쿠키에서 JWT 추출
+        String jwt = JwtUtil.extractJwtFromCookies(request);
+        
+        // 토큰 미존재시 로그인 창으로
+        if (jwt == null) {
+        	result.put("tokenCheck", "N");
+        	return ResponseEntity.ok(result);
+        }
+        
+		String id = JwtUtil.extractUsername(jwt);
+		Optional<User> info = loginService.loginUser(id);
+	    	if (info.isPresent()) {
+	    		// 비밀번호는 화면에 안넘김
+	    		info.get().setPassword("");
+	    		
+	    		result.put("list", info);
+	    		result.put("tokenCheck", "Y");
+	            return ResponseEntity.ok(result);
+	        } else {
+	        	result.put("tokenCheck", "N");
+	        	return ResponseEntity.ok(result);
+	        }
+	}
 }

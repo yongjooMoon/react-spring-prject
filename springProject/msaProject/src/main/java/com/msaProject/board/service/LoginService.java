@@ -32,4 +32,8 @@ public class LoginService {
         long expirationTime = JwtUtil.getExpiration(token) - System.currentTimeMillis();
         jwtBlacklistService.addToBlacklist(token, expirationTime);
     }
+    
+    public Optional<User> loginUser(String id) {		
+		return userRepository.findById(id);
+	}
 }
