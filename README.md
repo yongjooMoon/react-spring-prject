@@ -82,7 +82,7 @@ redis 사용, 로그아웃된 토큰을 수집하여 해당된 토큰으로 로�
 
 
 ### 추후 개발
-config 서버생성 하나의 config만 관리 <br>
+<a>config 서버생성 하나의 config만 관리</a> <br>
 
 ELK 생성하여 로그 수합
 
