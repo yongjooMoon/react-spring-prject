@@ -47,6 +47,7 @@ npm install axios --save # 서버와 통신하기 위한 모듈
 #JPA, JWT, Log4J, Eureka, MySql 설정
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -71,7 +72,7 @@ redis 사용, 로그아웃된 토큰을 수집하여 해당된 토큰으로 로�
 
 
 ### 추후 개발
-config 서버를 두어 하나의 config만 생성 <br>
+config 서버생성 하나의 config만 관리 <br>
 
 ELK 생성하여 로그 수합
 
