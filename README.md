@@ -25,7 +25,7 @@ Spring Boot와 React.js 를 모두 구성하여 MSA로 모듈별 프로젝트를
 
 <br>
 
-## spring 구성
+## Spring 구성
 ![image](https://github.com/user-attachments/assets/8fd90126-fd19-45f5-9d9c-172e19a9deba)
 
 
