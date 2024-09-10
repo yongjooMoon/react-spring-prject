@@ -21,6 +21,9 @@ Spring Boot와 React.js 를 모두 구성하여 MSA로 모듈별 프로젝트를
 ## 구성
 ![image](https://github.com/user-attachments/assets/1f5734f6-707e-4da6-b2c1-074434974096)
 
+![image](https://github.com/user-attachments/assets/99eb6bc9-308a-406b-8f3a-859b7b7065da)
+
+
 ## 사용한 버전
 Node : v20.16.0 <br>
 Spring Boot : 3.3.3 <br>
