@@ -80,6 +80,8 @@ Eureka, api-gateway를 설정, 9000(api-gateway), 9002(로그인+게시판), 900
 
 redis 사용, 로그아웃된 토큰을 수집하여 해당된 토큰으로 로그인 없이 접근을 방지한다. <br>
 
+spring cloud config를 사용, Gihub에 config 파일을 만들어 여러 서버가 한 config를 지켜봄으로서 같은 값을 유지하게 함, Spring cloud Bus를 RabbitMQ를 이용하였다. <br>
+
 
 ### 추후 개발
 ~~config 서버생성 하나의 config만 관리~~ <br>
