@@ -35,6 +35,7 @@ Spring Boot : 3.3.3 <br>
 JDK : 17 <br>
 react : 18.3.1 <br>
 redis : 3.05 <br>
+RabbitMQ : 3.13.7 <br>
 
 ### React.js 구성 요소
 ```bash
