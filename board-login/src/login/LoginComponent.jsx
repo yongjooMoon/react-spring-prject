@@ -25,23 +25,23 @@ const LoginPage = () => {
     }
 
     // 토큰이 만료되지 않은 사용자인지 체크
-    AxiosService.apiRequest('POST', 'api/tokenCheck')
-          .then((res) => {
-              // 기존 토큰 발행한 유저가 아니면 설정 종료
-              if(res.data.tokenCheck === "N"){
-                return;
-              }
+    // AxiosService.apiRequest('POST', 'api/tokenCheck')
+    //       .then((res) => {
+    //           // 기존 토큰 발행한 유저가 아니면 설정 종료
+    //           if(res.data.tokenCheck === "N"){
+    //             return;
+    //           }
 
-              setUser({ 
-                  userList: res.data.list
-              });
+    //           setUser({ 
+    //               userList: res.data.list
+    //           });
 
-              const param = res.data.list;
-              // 컨텍스트에 전역 변수 가지고 다니기
-              setInfo({param});
-              setNavigateTo('/board');
-              setIsLoading(false);
-          })
+    //           const param = res.data.list;
+    //           // 컨텍스트에 전역 변수 가지고 다니기
+    //           setInfo({param});
+    //           setNavigateTo('/board');
+    //           setIsLoading(false);
+    //       })
   }, []);
 
   const handleCheckboxChange = () => {

@@ -2,6 +2,11 @@ spring:
   application:
     name: menu-service
 
+  profiles:
+    active: local
+  config:
+    import: configserver:http://localhost:8888  # Config Server URL
+      
   datasource:
     url: jdbc:log4jdbc:mysql://localhost:3306/board-back?characterEncoding=UTF-8&serverTimezone=UTC
     username: ansdyd23
@@ -19,7 +24,19 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+      
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # 모든 Actuator 엔드포인트 노출
+        
 logging:
   level:
     org:
@@ -45,8 +62,3 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
       
-jwt:
-  key: 5IVb9J0LeHpbqTQe25jUUAjtrSwFEHGJ5XIs9+1JcKI=
-  
-upload:
-  path: D:\File

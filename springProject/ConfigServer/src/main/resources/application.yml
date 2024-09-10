@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: config-server
+    
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/yongjooMoon/config.git  # Git 저장소 URL
+          search-paths: ""  # 설정 파일이 루트 디렉터리에 있으면 빈 문자열로 설정
+          default-label: main
+          clone-on-start: true  # 서버 시작 시 Git에서 파일을 가져옴
+
+server:
+  port: 8888
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # 모든 Actuator 엔드포인트 노출
