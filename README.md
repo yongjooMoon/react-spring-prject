@@ -18,9 +18,10 @@ Spring Boot와 React.js 를 모두 구성하여 MSA로 모듈별 프로젝트를
 
 리액트와 스프링 부트를 연동하여 MSA로 구성된 프로젝트를 만들고 싶었습니다. 현재 두개의 모듈과 하나의 데이터 베이스로 연동을 하였고 JWT를 사용하여 인증 설정을 해놓았습니다.
 
-## 구성
+## 설계
 ![image](https://github.com/user-attachments/assets/99eb6bc9-308a-406b-8f3a-859b7b7065da)
 
+## spring 구성
 ![image](https://github.com/user-attachments/assets/8fd90126-fd19-45f5-9d9c-172e19a9deba)
 
 
