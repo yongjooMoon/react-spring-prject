@@ -54,7 +54,7 @@ npm install axios --save # 서버와 통신하기 위한 모듈
 
 ### Spring Boot 구성 요소
 ```bash
-#JPA, JWT, Log4J, Eureka, MySql 설정
+#JPA, JWT, Log4J, Eureka, MySql 설정, Redis, aio, config, Spring Bus
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
@@ -68,6 +68,10 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
 }
 ```
 
