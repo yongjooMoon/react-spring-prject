@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/react-spring-project/static/css/main.7af30d0b.css",
+    "main.js": "/react-spring-project/static/js/main.4c90cb4e.js",
+    "static/js/453.877640db.chunk.js": "/react-spring-project/static/js/453.877640db.chunk.js",
+    "static/media/heart-filled.png": "/react-spring-project/static/media/heart-filled.33aa8da6f4f384dc4073.png",
+    "static/media/heart-outline.png": "/react-spring-project/static/media/heart-outline.9ccb304f2111e20d34da.png",
+    "index.html": "/react-spring-project/index.html",
+    "main.7af30d0b.css.map": "/react-spring-project/static/css/main.7af30d0b.css.map",
+    "main.4c90cb4e.js.map": "/react-spring-project/static/js/main.4c90cb4e.js.map",
+    "453.877640db.chunk.js.map": "/react-spring-project/static/js/453.877640db.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7af30d0b.css",
+    "static/js/main.4c90cb4e.js"
+  ]
+}
