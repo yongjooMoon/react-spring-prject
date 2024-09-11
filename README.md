@@ -12,13 +12,22 @@ Spring Boot와 React.js 를 모두 구성하여 MSA로 모듈별 프로젝트를
 ![js](https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=Spring-Security&logoColor=white)
 ![js](https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white)
 ![js](https://img.shields.io/badge/redis-%23DD0031.svg?&style=for-the-badge&logo=redis&logoColor=white)
+![js](https://img.shields.io/badge/RabbitMQ-FF6600?style=for-the-badge&logo=RabbitMQ&logoColor=white)
 
 ## 개요
 
 리액트와 스프링 부트를 연동하여 MSA로 구성된 프로젝트를 만들고 싶었습니다. 현재 두개의 모듈과 하나의 데이터 베이스로 연동을 하였고 JWT를 사용하여 인증 설정을 해놓았습니다.
 
-## 구성
-![image](https://github.com/user-attachments/assets/1f5734f6-707e-4da6-b2c1-074434974096)
+<br>
+
+## 설계
+![image](https://github.com/user-attachments/assets/99eb6bc9-308a-406b-8f3a-859b7b7065da)
+
+<br>
+
+## Spring 구성
+![image](https://github.com/user-attachments/assets/8fd90126-fd19-45f5-9d9c-172e19a9deba)
+
 
 ## 사용한 버전
 Node : v20.16.0 <br>
@@ -26,6 +35,7 @@ Spring Boot : 3.3.3 <br>
 JDK : 17 <br>
 react : 18.3.1 <br>
 redis : 3.05 <br>
+RabbitMQ : 3.13.7 <br>
 
 ### React.js 구성 요소
 ```bash
@@ -70,9 +80,11 @@ Eureka, api-gateway를 설정, 9000(api-gateway), 9002(로그인+게시판), 900
 
 redis 사용, 로그아웃된 토큰을 수집하여 해당된 토큰으로 로그인 없이 접근을 방지한다. <br>
 
+spring cloud config를 사용, Gihub에 config 파일을 만들어 여러 서버가 한 config를 지켜봄으로서 같은 값을 유지하게 함, Spring cloud Bus를 RabbitMQ를 이용하였다. <br>
+
 
 ### 추후 개발
-config 서버생성 하나의 config만 관리 <br>
+~~config 서버생성 하나의 config만 관리~~ <br>
 
 ELK 생성하여 로그 수합
 
